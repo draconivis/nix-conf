@@ -4,16 +4,14 @@
   ...
 }: {
   imports = [
-      inputs.home-manager.nixosModules.home-manager
-      ./awesome.nix
-      ./keyboard.nix
-      ./locale.nix
-      ./pipewire.nix
-      ./systemd-boot.nix
-      ./zsh.nix
+    ./fonts.nix
+    ./keyboard.nix
+    ./locale.nix
+    ./nixos.nix
+    ./packages.nix
+    ./pipewire.nix
+    ./systemd-boot.nix
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  programs.zsh.enable = true;
 }

@@ -1,33 +1,37 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [
+{inputs, pkgs, ...}: {
+  environment.systemPackages = with pkgs; [
+    #deezer
+    #interception-caps2esc
+    #lain
+    #network-manager-applet
+    #npm
     acpi
     alacritty
     arandr
+    autorandr
     awesome
+    blueman
     brightnessctl
     btop
-    #deezer
-    gcc
+    delta
     devbox
-    pavucontrol
     dex
     discord
     easyeffects
     evdevremapkeys
     fastfetch
-    git
     firefox
     firefox-devedition-bin
     flameshot
     frei0r
+    gcc
     gimp
-    delta
+    git
     gnome.gnome-calculator
     gnome.gnome-keyring
     gvfs
+    home-manager
     i3lock-fancy
-    #interception-caps2esc
-    #lain
     libreoffice-fresh
     lsd
     lsp-plugins
@@ -36,26 +40,24 @@
     moar
     mpv
     neovim
-    #network-manager-applet
-    #npm
     papirus-icon-theme
+    pavucontrol
     picom
     qtile
     redshift
     ripgrep
-    xfce.ristretto
     rofi
     slack
     sxhkd
-    home-manager
-    xfce.thunar
-    xfce.thunar-archive-plugin
-    xfce.thunar-volman
     tmux
     transmission-gtk
     webp-pixbuf-loader
     wget
     xclip
+    xfce.ristretto
+    xfce.thunar
+    xfce.thunar-archive-plugin
+    xfce.thunar-volman
     xorg.xrdb
     xss-lock
     zoxide
