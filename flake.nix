@@ -34,10 +34,10 @@
         modules = [ ./hosts/p14s/configuration.nix ];
       };
       # private laptop
-      t590 = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs outputs; };
-        modules = [ ./hosts/t590/configuration.nix ];
-      };
+      # t590 = nixpkgs.lib.nixosSystem {
+      #   specialArgs = { inherit inputs outputs; };
+      #   modules = [ ./hosts/t590/configuration.nix ];
+      # };
     };
 
     # Standalone home-manager configuration entrypoint
@@ -48,11 +48,11 @@
         extraSpecialArgs = {inherit inputs outputs;};
         modules = [ ./home/patrick/p14s.nix ];
       };
-      "patrick@t590" = nixpkgs.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
-        modules = [ ./home/patrick/t590.nix ];
-      };
+      # "patrick@t590" = nixpkgs.lib.homeManagerConfiguration {
+      #   pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+      #   extraSpecialArgs = {inherit inputs outputs;};
+      #   modules = [ ./home/patrick/t590.nix ];
+      # };
     };
   };
 }

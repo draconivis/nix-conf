@@ -44,7 +44,6 @@
   };
 
   # Add stuff for your user as you see fit:
-  programs.neovim.enable = true;
   home.packages = with pkgs; [
     awscli2
     devbox
@@ -63,11 +62,12 @@
   ];
 
   programs = {
+    neovim.enable = true;
     home-manager.enable = true;
     git.enable = true;
-    gnupg.agent = {
+    zsh = {
       enable = true;
-      enableSSHSupport = true;
+      antidote.enable = true;
     };
   };
 

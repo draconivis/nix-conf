@@ -2,6 +2,7 @@
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
 {
   inputs,
+  outputs,
   lib,
   config,
   pkgs,
@@ -11,6 +12,8 @@
   imports = [
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
+    # import home-manager module
+    inputs.home-manager.nixosModules.home-manager
 
     ../common
   ];
@@ -49,7 +52,6 @@
       value.source = value.flake;
     })
     config.nix.registry;
-
 
   powerManagement.powertop.enable = true;
 
@@ -104,17 +106,20 @@
     };
   };
 
-  # This setups a SSH server. Very important if you're setting up a headless system.
-  # Feel free to remove if you don't need it.
-  # services.openssh = {
-  #   enable = true;
-  #   settings = {
-  #     # Forbid root login through SSH.
-  #     PermitRootLogin = "no";
-  #     # Use keys only. Remove if you want to SSH using password (not recommended)
-  #     PasswordAuthentication = false;
+  virtualisation.docker.enable = true;
+
+  # home-manager = {
+  #   extraSpecialArgs = { inherit inputs outputs; };
+  #   users = {
+  #     # Import your home-manager configuration
+  #     patrick = import ../home/patrick/p14s.nix;
   #   };
   # };
+
+  programs.gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.11";

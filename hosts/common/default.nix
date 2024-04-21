@@ -13,5 +13,4 @@
     ./systemd-boot.nix
   ];
 
-  programs.zsh.enable = true;
 }
