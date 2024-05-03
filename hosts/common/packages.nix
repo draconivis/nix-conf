@@ -29,6 +29,7 @@
     git
     gnome.gnome-calculator
     gnome.gnome-keyring
+    libsecret
     gvfs
     home-manager
     i3lock-fancy

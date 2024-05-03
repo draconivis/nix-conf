@@ -14,7 +14,7 @@
     ./hardware-configuration.nix
     # import home-manager module
     inputs.home-manager.nixosModules.home-manager
-
+    inputs.nix-ld.nixosModules.nix-ld
     ../common
   ];
 
@@ -55,17 +55,33 @@
 
   powerManagement.powertop.enable = true;
 
+  xdg.portal.enable = true;
   services = {
+    gvfs.enable = true; # Mount, trash, and other functionalities
+    flatpak.enable = true;
+    interception-tools = { # https://discourse.nixos.org/t/troubleshooting-help-services-interception-tools/20389/5
+      enable = true;
+      plugins = with pkgs; [
+        interception-tools-plugins.caps2esc
+      ];
+      udevmonConfig = ''
+        - JOB: "${pkgs.interception-tools}/bin/intercept -g $DEVNODE | ${pkgs.interception-tools-plugins.caps2esc}/bin/caps2esc -m 1 | ${pkgs.interception-tools}/bin/uinput -d $DEVNODE"
+          DEVICE:
+            EVENTS:
+              EV_KEY: [KEY_CAPSLOCK, KEY_ESC]
+        '';
+    };
+    gnome.gnome-keyring.enable = true;
     xserver = {
       enable = true;
       videoDrivers = [ "nvidia" ];
       windowManager.awesome = {
         enable = true;
       };
-      displayManager.sddm = {
-        enable = true;
-        # autoSuspend = false;
-      };
+    };
+    displayManager.sddm = {
+      enable = true;
+# autoSuspend = false;
     };
   };
 
@@ -101,12 +117,14 @@
     patrick = {
       isNormalUser = true;
       description = "patrick";
-      # shell = pkgs.zsh;
+      shell = pkgs.zsh;
       extraGroups = ["wheel" "networkmanager" "docker"];
     };
   };
 
   virtualisation.docker.enable = true;
+
+  environment.pathsToLink = [ "/share/zsh" ];
 
   # home-manager = {
   #   extraSpecialArgs = { inherit inputs outputs; };
@@ -116,10 +134,18 @@
   #   };
   # };
 
-  programs.gnupg.agent = {
+  programs = {
+    gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
+    };
+    thunar.plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
+    nix-ld.dev.enable = true;
   };
+  programs.zsh.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.11";

@@ -45,29 +45,162 @@
 
   # Add stuff for your user as you see fit:
   home.packages = with pkgs; [
+    arc-icon-theme
     awscli2
+    bat
+    bruno
+    capitaine-cursors
+    cargo
     devbox
     direnv
+    networkmanagerapplet
     docker
     docker-compose
     du-dust
     firefox-devedition-bin
+    fzf
     jetbrains.phpstorm
     lazygit
+    dash
     mariadb
     pinentry-rofi
+    pure-prompt
+    silicon
     slack
+    slides
     tmux
+    tmuxPlugins.tmux-fzf
     #insomnium-bin
   ];
 
   programs = {
+    alacritty = {
+      enable = true;
+      settings = {
+        live_config_reload = true;
+        font = {
+          size = 10.0;
+          normal = {
+            family = "JetBrainsMonoNF";
+            style = "Regular";
+          };
+        };
+        # shell = {
+        #   args = ["new-session", "-A", "-D", "-s", "main"];
+        #   program = "/usr/bin/tmux";
+        # };
+        window = {
+          dynamic_padding = true;
+          # startup_mode = "Maximized";
+          decorations = "None";
+          padding = {
+            # x = 0;
+            # y = 10;
+          };
+        };
+      };
+    };
+    # autorandr = {
+    #   enable = true;
+    # }
     neovim.enable = true;
     home-manager.enable = true;
     git.enable = true;
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+      config = {
+        hide_env_diff = true;
+      };
+    };
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+      options = [ "--cmd cd" ];
+    };
     zsh = {
       enable = true;
-      antidote.enable = true;
+      history = {
+        size = 10000;
+        path = "${config.xdg.dataHome}/zsh/history";
+        share = true;
+      };
+      enableCompletion = true;
+      # autosuggestions.enable = true;
+      syntaxHighlighting.enable = true;
+      historySubstringSearch.enable = true;
+      initExtraFirst = ''
+        # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+        # Initialization code that may require console input (password prompts, [y/n]
+        # confirmations, etc.) must go above this block; everything else may go below.
+        if [[ -r "$\{XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-$\{(%):-%n}.zsh" ]]; then
+          source "$\{XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-$\{(%):-%n}.zsh"
+        fi
+      '';
+      initExtra = ''
+        #vagrant
+        function vup () {
+          cd ~/work/start/homestead
+            vagrant up
+            cd -
+        }
+        function vdown () {
+          cd ~/work/start/homestead
+            vagrant suspend
+            cd -
+        }
+        function vssh () {
+          cd ~/work/start/homestead
+            vagrant ssh
+            cd -
+        }
+        function vhalt () {
+          cd ~/work/start/homestead
+            vagrant halt
+            cd -
+        }
+
+        ## load p10k
+        [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+      '';
+      shellAliases = {
+        "ls"="lsd";
+        "ll"="ls -lh";
+        "la"="ls -lAh";
+        ".."="cd ..";
+        "..."="cd ../..";
+        "...."="cd ../../..";
+        "lg"="lazygit";
+        "bc"="bin/console";
+        "dbx"="devbox";
+      };
+      antidote = {
+        enable = true;
+        useFriendlyNames = true;
+        plugins = [
+          # completions
+          # "mattmc3/zephyr path:plugins/completion"
+          "zsh-users/zsh-completions"
+          #g-plane/pnpm-shell-completion
+          # regular plugins
+          "ael-code/zsh-colored-man-pages"
+          "davidde/git"
+
+          ## work
+          #mattberther/zsh-pyenv
+          #sptndc/phpenv.plugin.zsh
+          #lukechilds/zsh-nvm
+
+          # prompt
+          "romkatv/powerlevel10k"
+          # syntax highlighting
+          # "zdharma-continuum/fast-syntax-highlighting"
+          # these plugins need to be loaded last
+          "zsh-users/zsh-autosuggestions"
+          # "zsh-users/zsh-history-substring-search"
+        ];
+      };
     };
   };
 
