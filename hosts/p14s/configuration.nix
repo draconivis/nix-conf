@@ -14,7 +14,7 @@
     ./hardware-configuration.nix
     # import home-manager module
     inputs.home-manager.nixosModules.home-manager
-    inputs.nix-ld.nixosModules.nix-ld
+    # inputs.nix-ld.nixosModules.nix-ld
     ../common
   ];
 
@@ -57,6 +57,12 @@
 
   xdg.portal.enable = true;
   services = {
+    printing.enable = true;
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
     gvfs.enable = true; # Mount, trash, and other functionalities
     flatpak.enable = true;
     interception-tools = { # https://discourse.nixos.org/t/troubleshooting-help-services-interception-tools/20389/5
@@ -74,7 +80,7 @@
     gnome.gnome-keyring.enable = true;
     xserver = {
       enable = true;
-      videoDrivers = [ "nvidia" ];
+      # videoDrivers = [ "nvidia" ];
       windowManager.awesome = {
         enable = true;
       };
@@ -85,28 +91,46 @@
     };
   };
 
-  hardware = {
-    nvidia = {
-      modesetting.enable = true;
-      powerManagement = {
-        enable = true;
-        finegrained = true;
-      };
-      prime = {
-        offload = {
-          enable = true;
-          enableOffloadCmd = true;
-        };
-        nvidiaBusId = "PCI:3:0:0";
-        intelBusId = "PCI:0:2:0";
-      };
-    };
-    opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-    };
-  };
+  # hardware = {
+    # nvidia = {
+    #   modesetting.enable = true;
+    #   powerManagement = {
+    #     enable = false;
+    #     finegrained = true;
+    #   };
+    #   prime = {
+    #     offload = {
+    #       enable = true;
+    #       enableOffloadCmd = true;
+    #     };
+    #     # sync.enable = true;
+    #     nvidiaBusId = "PCI:3:0:0";
+    #     intelBusId = "PCI:0:2:0";
+    #   };
+    # };
+  #   opengl = {
+  #     enable = true;
+  #     driSupport = true;
+  #     driSupport32Bit = true;
+  #   };
+  # };
+
+  boot.extraModprobeConfig = ''
+    blacklist nouveau
+    options nouveau modeset=0
+  '';
+    
+  services.udev.extraRules = ''
+    # Remove NVIDIA USB xHCI Host Controller devices, if present
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
+    # Remove NVIDIA USB Type-C UCSI devices, if present
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{power/control}="auto", ATTR{remove}="1"
+    # Remove NVIDIA Audio devices, if present
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto", ATTR{remove}="1"
+    # Remove NVIDIA VGA/3D controller devices
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"
+  '';
+  boot.blacklistedKernelModules = [ "nouveau" "nvidia" "nvidia_drm" "nvidia_modeset" ];
 
   networking = {
     hostName = "p14s";
@@ -126,14 +150,6 @@
 
   environment.pathsToLink = [ "/share/zsh" ];
 
-  # home-manager = {
-  #   extraSpecialArgs = { inherit inputs outputs; };
-  #   users = {
-  #     # Import your home-manager configuration
-  #     patrick = import ../home/patrick/p14s.nix;
-  #   };
-  # };
-
   programs = {
     gnupg.agent = {
       enable = true;
@@ -143,9 +159,9 @@
       thunar-archive-plugin
       thunar-volman
     ];
-    nix-ld.dev.enable = true;
+    nix-ld.enable = true;
+    zsh.enable = true;
   };
-  programs.zsh.enable = true;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.11";

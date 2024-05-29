@@ -64,10 +64,13 @@
     dash
     mariadb
     pinentry-rofi
+    unzip
     pure-prompt
     silicon
     slack
+    xplr
     slides
+    vscodium
     tmux
     tmuxPlugins.tmux-fzf
     #insomnium-bin
@@ -79,7 +82,7 @@
       settings = {
         live_config_reload = true;
         font = {
-          size = 10.0;
+          # size = 10.0;
           normal = {
             family = "JetBrainsMonoNF";
             style = "Regular";
@@ -198,7 +201,7 @@
           # "zdharma-continuum/fast-syntax-highlighting"
           # these plugins need to be loaded last
           "zsh-users/zsh-autosuggestions"
-          # "zsh-users/zsh-history-substring-search"
+          "zsh-users/zsh-history-substring-search"
         ];
       };
     };
