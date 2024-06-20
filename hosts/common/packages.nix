@@ -44,7 +44,7 @@
     papirus-icon-theme
     pavucontrol
     picom
-    qtile
+    # qtile
     redshift
     ripgrep
     rofi

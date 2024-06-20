@@ -151,6 +151,7 @@
   environment.pathsToLink = [ "/share/zsh" ];
 
   programs = {
+    hyprland.enable = true;
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
@@ -162,6 +163,9 @@
     nix-ld.enable = true;
     zsh.enable = true;
   };
+
+  # Optional, hint electron apps to use wayland:
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.11";

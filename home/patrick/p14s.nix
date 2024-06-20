@@ -81,6 +81,7 @@
       enable = true;
       settings = {
         live_config_reload = true;
+        import = ["~/.config/alacritty/catppuccin-macchiato.toml"];
         font = {
           # size = 10.0;
           normal = {
@@ -88,18 +89,14 @@
             style = "Regular";
           };
         };
-        # shell = {
-        #   args = ["new-session", "-A", "-D", "-s", "main"];
-        #   program = "/usr/bin/tmux";
-        # };
         window = {
           dynamic_padding = true;
           # startup_mode = "Maximized";
           decorations = "None";
-          padding = {
-            # x = 0;
-            # y = 10;
-          };
+        };
+        shell = {
+          args = ["new-session" "-A" "-s" "main"];
+          program = "tmux";
         };
       };
     };
@@ -131,8 +128,8 @@
       };
       enableCompletion = true;
       # autosuggestions.enable = true;
-      syntaxHighlighting.enable = true;
-      historySubstringSearch.enable = true;
+      # syntaxHighlighting.enable = true;
+      # historySubstringSearch.enable = true;
       initExtraFirst = ''
         # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
         # Initialization code that may require console input (password prompts, [y/n]
@@ -198,13 +195,18 @@
           # prompt
           "romkatv/powerlevel10k"
           # syntax highlighting
-          # "zdharma-continuum/fast-syntax-highlighting"
+          "zdharma-continuum/fast-syntax-highlighting"
           # these plugins need to be loaded last
           "zsh-users/zsh-autosuggestions"
           "zsh-users/zsh-history-substring-search"
         ];
       };
     };
+    # oh-my-posh = {
+    #   enable = true;
+    #   enableZshIntegration = true;
+    #   useTheme = "catppuccin_macchiato";
+    # };
   };
 
   # Nicely reload system units when changing configs
