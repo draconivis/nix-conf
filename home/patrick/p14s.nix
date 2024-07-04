@@ -50,6 +50,7 @@
     bat
     bruno
     capitaine-cursors
+    fwupd
     cargo
     devbox
     direnv
@@ -81,7 +82,8 @@
       enable = true;
       settings = {
         live_config_reload = true;
-        import = ["~/.config/alacritty/catppuccin-macchiato.toml"];
+        # import = ["~/.config/alacritty/catppuccin-macchiato.toml"];
+        import = ["~/.config/alacritty/tokyonight-moon.toml"];
         font = {
           # size = 10.0;
           normal = {
