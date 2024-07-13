@@ -68,6 +68,7 @@
     mariadb
     neovim
     networkmanagerapplet
+    oh-my-posh
     pinentry-rofi
     pure-prompt
     silicon
@@ -80,7 +81,6 @@
     xplr
     zed-editor
     zoxide
-    zellij
   ];
 
   # Nicely reload system units when changing configs

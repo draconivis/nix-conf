@@ -43,7 +43,6 @@
     neovim
     papirus-icon-theme
     pavucontrol
-    picom
     # qtile
     redshift
     ripgrep

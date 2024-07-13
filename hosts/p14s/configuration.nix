@@ -87,7 +87,10 @@
     };
     displayManager.sddm = {
       enable = true;
-# autoSuspend = false;
+      # autoSuspend = false;
+    };
+    picom = {
+      enable = true;
     };
   };
 
