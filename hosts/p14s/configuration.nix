@@ -118,6 +118,8 @@
   #   };
   # };
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   boot.extraModprobeConfig = ''
     blacklist nouveau
     options nouveau modeset=0
@@ -154,7 +156,6 @@
   environment.pathsToLink = [ "/share/zsh" ];
 
   programs = {
-    hyprland.enable = true;
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;

@@ -46,12 +46,14 @@
   # Add stuff for your user as you see fit:
   home.packages = with pkgs; [
     antidote
+    android-tools
     arc-icon-theme
     awscli2
     bat
     bruno
     capitaine-cursors
     cargo
+    ckb-next
     dash
     devbox
     direnv
@@ -62,9 +64,11 @@
     fwupd
     fzf
     git
+    gum
     home-manager
     jetbrains.phpstorm
     lazygit
+    librewolf
     mariadb
     neovim
     networkmanagerapplet
@@ -76,10 +80,12 @@
     slides
     tmux
     tmuxPlugins.tmux-fzf
+    xfce.tumbler
     unzip
     vscodium
     xplr
     zed-editor
+    zip
     zoxide
   ];
 
