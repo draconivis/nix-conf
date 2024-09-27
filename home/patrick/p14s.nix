@@ -61,6 +61,7 @@
     docker-compose
     du-dust
     firefox-devedition-bin
+    ffmpeg
     fwupd
     fzf
     git
@@ -78,13 +79,17 @@
     silicon
     slack
     slides
+    strawberry-qt6
     tmux
     tmuxPlugins.tmux-fzf
     xfce.tumbler
+    ungoogled-chromium
     unzip
     vscodium
+    wezterm
     xplr
-    zed-editor
+    yazi
+    # zed-editor
     zip
     zoxide
   ];
