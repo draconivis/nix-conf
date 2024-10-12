@@ -1,7 +1,9 @@
 # nix-conf
 
-My Nix config
+my nix config
 
-## Commands
+## system update
 
-- rebuild system `sudo nixos-rebuild switch --flake /path/to/flake.nix#host` (exchange host with p14s for example)
+- `nix flake update`
+- `home-manager switch --flake ".user@host"` (eg. `".patrick@p14s"`)
+- sudo nixos-rebuild switch --flake ".host" (eg. `".p14s"`)
