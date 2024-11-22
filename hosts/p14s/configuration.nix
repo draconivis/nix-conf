@@ -94,7 +94,10 @@
     };
   };
 
-  # hardware = {
+  virtualisation.libvirtd.enable = true;
+
+  hardware = {
+    bluetooth.enable = true;
     # nvidia = {
     #   modesetting.enable = true;
     #   powerManagement = {
@@ -116,7 +119,7 @@
   #     driSupport = true;
   #     driSupport32Bit = true;
   #   };
-  # };
+  };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -147,7 +150,7 @@
       isNormalUser = true;
       description = "patrick";
       shell = pkgs.zsh;
-      extraGroups = ["wheel" "networkmanager" "docker"];
+      extraGroups = ["wheel" "networkmanager" "docker" "libvirtd"];
     };
   };
 
